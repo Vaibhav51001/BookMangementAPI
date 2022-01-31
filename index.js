@@ -1,5 +1,6 @@
 const db = require('./DataBase/index.js')
 const BookModel = require('./DataBase/books.js')
+require('dotenv').config();
 
 // console.log(db.books);
 // console.log(db.authors);
@@ -48,7 +49,7 @@ app.use(express.json());
 //Import the mongoose module
 var mongoose = require('mongoose');
 //Set up default mongoose connection
-var mongoDB = 'mongodb+srv://Kr_Vaibhav:H9GQFAAg9PGe2lyg@cluster0.z3kdp.mongodb.net/Book-Company?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGO_URL;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>console.log("CONNECTION ESTABLISHED"));
 
 
@@ -224,7 +225,8 @@ app.delete("/book-author-delete/:isbn/:id", (req, res) =>{
     return res.json(db.books);
 });
 
+const PORT = process.env.PORT || 4000;
 
-app.listen(3000,() => {
+app.listen(PORT,() => {
     console.log("My Express App is Running .....");
 });
